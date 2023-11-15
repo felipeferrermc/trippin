@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'locations:delete' location.id %}" method="post">
+    {% csrf_token %}
+    <section id="delete-section">
+        <h2>
+            Are you sure that you want to delete the trip to "{{ location.name }}"?
+        </h2>
+        <section class="delete-image"></section>
+        <button type="submit" class="create-button">Delete</button>
+    </section>
+</form>
+{% endblock content %}

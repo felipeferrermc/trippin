@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %} {{ location.name }} ({{
+location.travel_year }} {% endblock title %}
+<main>
+
+    {% block content %}
+    <div class="location-pages-title">
+        <h2>Detailing the trip to {{ location.name }} ({{ location.travel_year }})</h2>
+    </div>
+
+    <section class="dados-de-viagem">
+        <img src="{{ location.image_url }}" alt="Imagem da viagem para {{ location.name}}" />
+        <ul>
+            <li>Where: {{ location.name }}</li>
+            <li>When: {{ location.travel_year }}</li>
+            <li>Trippin Score: {{ location.score }}/5</li>
+            <li>Highlight: {{ location.touristic_point }}</li>
+            <li class="location-analysis">Description: {{ location.analysis }}</li>
+            <li id="edit-button"><a href="{% url 'locations:update' location.id %}">Edit</a></li>
+            <li><a href="{% url 'locations:delete' location.id %}" id="delete-button">Delete</a></li>
+        </ul>
+    </section>
+
+    {% endblock content %}
+</main>

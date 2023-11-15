@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+<form method="POST" action="{% url 'locations:create' %}" class="creation-form">
+    <h2>Add New Trip</h2>
+    {% csrf_token %}
+    <p>
+        <label for="id_name">Location</label>
+        <input type="text" name="name" id="id_name" class="form-space" />
+    </p>
+    <p>
+        <label for="id_travel_year">Travel Year</label>
+        <input type="number" name="travel_year" id="id_travel_year" class="form-space" />
+    </p>
+    <p>
+        <label for="id_image_url">Location Image</label>
+        <input type="url" name="image_url" id="id_image_url" class="form-space" />
+    </p>
+    <p>
+        <label for="id_score">Trippin Score (0~5)</label>
+        <input type="float" name="score" id="id_score" class="form-space" />
+    </p>
+    <p>
+        <label for="id_touristic_point">Highlight</label>
+        <input type="text" name="touristic_point" id="id_touristic_point" class="form-space" />
+    </p>
+    <p>
+        <label for="id_analysis">Analysis</label>
+        <input type="text" name="analysis" id="id_analysis" class="form-space" />
+    </p>
+    <button type="submit" class="create-button">Criar</button>
+</form>
+
+{% endblock content %}

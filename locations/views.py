@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Post
+from .forms import PostForm
 
 def detail_location(request, location_id):
     location_data = Post.objects.all()
@@ -16,36 +17,53 @@ def list_locations(request):
 
 def create_location(request):
     if request.method == 'POST':
-        location_name = request.POST['name']
-        location_travel_year = request.POST['travel_year']
-        location_image_url = request.POST['image_url']
-        location_score = request.POST['score']
-        location_touristic_point = request.POST['touristic_point']
-        location_analysis = request.POST['analysis']
-        location = Post(name=location_name,
-                      travel_year=location_travel_year,
-                      image_url=location_image_url, score = location_score, touristic_point = location_touristic_point, analysis = location_analysis)
-        location.save()
-        return HttpResponseRedirect(
-            reverse('locations:detail', args=(location.id, )))
+        form = PostForm(request.POST)
+        if form.is_valid():
+            location_name = form.cleaned_data['name']
+            location_travel_year = form.cleaned_data['travel_year']
+            location_image_url = form.cleaned_data['image_url']
+            location_score = form.cleaned_data['score']
+            location_touristic_point = form.cleaned_data['touristic_point']
+            location_analysis = form.cleaned_data['analysis']
+            location = Post(name=location_name,
+                        travel_year=location_travel_year,
+                        image_url=location_image_url, score = location_score, touristic_point = location_touristic_point, analysis = location_analysis)
+            location.save()
+            return HttpResponseRedirect(
+                reverse('locations:detail', args=(location.id, )))
     else:
-        return render(request, 'locations/create.html', {})
+        form = PostForm()
+        context = {'form': form}
+        return render(request, 'locations/create.html', context)
 
 def update_location(request, location_id):
     location = get_object_or_404(Post, pk=location_id)
 
     if request.method == "POST":
-        location.name = request.POST['name']
-        location.travel_year = request.POST['travel_year']
-        location.image_url = request.POST['image_url']
-        location.score = request.POST['score']
-        location.touristic_point = request.POST['touristic_point']
-        location.analysis = request.POST['analysis']
-        location.save()
-        return HttpResponseRedirect(
-            reverse('locations:detail', args=(location.id, )))
+        form = PostForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            location.name = form.cleaned_data['name']
+            location.travel_year = form.cleaned_data['travel_year']
+            location.image_url = form.cleaned_data['image_url']
+            location.score = form.cleaned_data['score']
+            location.touristic_point = form.cleaned_data['touristic_point']
+            location.analysis = form.cleaned_data['analysis']
+            location.save()
+            return HttpResponseRedirect(
+                reverse('locations:detail', args=(location.id, )))
+    else:
+        form = PostForm(
+            initial={
+                'name': location.name,
+                'travel_year': location.travel_year,
+                'image_url': location.image_url,
+                'score': location.score,
+                'touristic_point': location.touristic_point,
+                'analysis': location.analysis
+            })
 
-    context = {'location': location}
+    context = {'location': location, 'form': form}
     return render(request, 'locations/update.html', context)
 
 

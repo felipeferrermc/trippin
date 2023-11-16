@@ -182,6 +182,10 @@ button {
   margin-bottom: 10vh;
 }
 
+.create-button p input {
+  border: 2px solid black;
+}
+
 /* Estilos adicionais para tornar o parágrafo mais responsivo */
 @media screen and (max-width: 600px) {
   p {

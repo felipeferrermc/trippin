@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="add-comment-section">
+    <h2>Comment the trip to {{ location.name }}</h2>
+
+    <form action="{% url 'locations:comment' location.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="comment-button">Comment</button>
+    </form>
+</section>
+<p><a href="{% url 'locations:detail' location.id %}" class="create-button">
+        << Travel Page</a>
+</p>
+{% endblock content %}

@@ -1,9 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from .models import Post
-from .forms import PostForm
-from django.views import generic
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView
@@ -49,3 +47,21 @@ class DeletePostView(DeleteView):
     def get_object(self, queryset=None):
         location_id = self.kwargs.get('location_id')
         return get_object_or_404(Post, pk=location_id)
+    
+def create_Comment(request, location_id):
+    location = get_object_or_404(Post, pk=location_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment_author = form.cleaned_data['author']
+            comment_text = form.cleaned_data['text']
+            comment = Comment(author=comment_author,
+                            text=comment_text,
+                            location=location)
+            comment.save()
+            return HttpResponseRedirect(
+                reverse_lazy('locations:detail', args=(location_id, )))
+    else:
+        form = CommentForm()
+    context = {'form': form, 'location': location}
+    return render(request, 'locations/comment.html', context)

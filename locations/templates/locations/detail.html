@@ -19,6 +19,24 @@ location.travel_year }} {% endblock title %}
             <li id="delete-button"><a href="{% url 'locations:delete' location.id %}">Delete</a></li>
         </ul>
     </section>
+    <section class='comment-section'>
+        <h3>Comments</h3>
+        <ul>
+            {% if location.comment_set.all %}
+            {% for comment in location.comment_set.all %}
+            <figure class="comment-space">
+                <figcaption>In {{ comment.date }} User {{ comment.author }} said:</figcaption>
+                <blockquote>
+                    "{{ comment.text }}"
+                </blockquote>
+            </figure>
+            {% endfor %}
+            {% else %}
+            <p>There's no comments for this travel yet</p>
+            {% endif %}
+        </ul>
+        <a href="{% url 'locations:comment' location.pk %}"><button class="comment-button">Comment</button></a>
+    </section>
 
     {% endblock content %}
 </main>

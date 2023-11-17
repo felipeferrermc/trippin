@@ -180,16 +180,31 @@ button {
   box-sizing: border-box;
   font-size: 0.8rem;
   margin-bottom: 10vh;
+  text-decoration: none;
 }
 
 .create-button p input {
   border: 2px solid black;
 }
 
-/* Estilos adicionais para tornar o parágrafo mais responsivo */
+.create-button:hover {
+  background-color: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 4px;
+  max-width: 120px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  margin-bottom: 10vh;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 600px) {
   p {
-    width: 90%; /* Define uma largura menor para telas pequenas */
+    width: 90%;
   }
 }
 
@@ -231,4 +246,46 @@ button {
 
 #delete-button a {
   color: red;
+}
+
+.comment-section {
+  margin-left: 5vw;
+  margin-bottom: 10vh;
+}
+
+.comment-space figcaption {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.comment-section blockquote {
+  font-family: monospace;
+}
+
+.add-comment-section {
+  margin-left: 15vw;
+}
+
+.comment-button {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
+  max-width: 120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  margin-bottom: 10vh;
+}
+
+.comment-button:hover {
+  background-color: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 4px;
+  max-width: 120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  margin-bottom: 10vh;
 }

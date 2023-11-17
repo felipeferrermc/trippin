@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -65,3 +65,11 @@ def create_Comment(request, location_id):
         form = CommentForm()
     context = {'form': form, 'location': location}
     return render(request, 'locations/comment.html', context)
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'locations/categories.html'
+
+class CategoryPostView(DetailView):
+    model = Category
+    template_name = 'locations/posts_by_category.html'

@@ -289,3 +289,46 @@ button {
   font-size: 0.8rem;
   margin-bottom: 10vh;
 }
+
+.category-section {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  max-height: 15vh;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 2.5vh;
+}
+
+.category-image {
+  max-width: 20%;
+  max-height: 100%;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.category-content {
+  flex-grow: 1;
+}
+
+.category-content h3 {
+  font-weight: bold;
+}
+
+.category-displayed {
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #505261;
+}
+
+.category-div {
+  display: flex;
+  flex-direction:row;
+}

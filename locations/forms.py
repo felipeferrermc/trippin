@@ -11,7 +11,8 @@ class PostForm(ModelForm):
             'image_url',
             'score',
             'touristic_point',
-            'analysis'
+            'analysis',
+            'categories'
         ]
         labels = {
             'name': 'Location',
@@ -19,7 +20,8 @@ class PostForm(ModelForm):
             'image_url': 'Location Image',
             'score': 'Trippin Score',
             'touristic_point' : 'Highlight',
-            'analysis': 'Analysis'
+            'analysis': 'Analysis',
+            'categories': 'Categories'
         }
 
 class CommentForm(ModelForm):

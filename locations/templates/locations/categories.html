@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Categories
+{% endblock title %}
+
+{% block content %}
+<div class="location-pages-title">
+    <h2>All Categories</h2>
+</div>
+
+<section>
+    {% for category in category_list %}
+    <article class="category-page">
+        <a href="{% url 'locations:posts_by_category' category.id %}">
+            <section class="category-section">
+                <img src="{{ category.image }}" class="category-image" alt="{{category.name}} Category Image">
+                <div class="category-content">
+                    <h3>{{category.name}}</h3>
+                    <p>{{category.description}}</p>
+                </div>
+            </section>
+        </a>
+        {% endfor %}
+
+</section>
+
+{% endblock content %}

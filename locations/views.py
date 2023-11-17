@@ -3,76 +3,49 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Post
 from .forms import PostForm
+from django.views import generic
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic.edit import UpdateView, DeleteView
 
-def detail_location(request, location_id):
-    location_data = Post.objects.all()
-    location = get_object_or_404(Post, pk=location_id)
-    context = {'location': location}
-    return render(request, 'locations/detail.html', context)
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'locations/detail.html'
+    context_object_name = 'location'
+    pk_url_kwarg = 'location_id'
 
-def list_locations(request):
-    location_data = Post.objects.all()
-    context = {"location_list": location_data}
-    return render(request, 'locations/index.html', context)
+class PostListView(ListView):
+    model = Post
+    template_name = 'locations/index.html'
+    context_object_name = 'location_list'
 
-def create_location(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            location_name = form.cleaned_data['name']
-            location_travel_year = form.cleaned_data['travel_year']
-            location_image_url = form.cleaned_data['image_url']
-            location_score = form.cleaned_data['score']
-            location_touristic_point = form.cleaned_data['touristic_point']
-            location_analysis = form.cleaned_data['analysis']
-            location = Post(name=location_name,
-                        travel_year=location_travel_year,
-                        image_url=location_image_url, score = location_score, touristic_point = location_touristic_point, analysis = location_analysis)
-            location.save()
-            return HttpResponseRedirect(
-                reverse('locations:detail', args=(location.id, )))
-    else:
-        form = PostForm()
-        context = {'form': form}
-        return render(request, 'locations/create.html', context)
+class CreatePostView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'locations/create.html'
+    success_url = reverse_lazy('locations:index') 
 
-def update_location(request, location_id):
-    location = get_object_or_404(Post, pk=location_id)
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'locations/update.html'
+    pk_url_kwarg = 'location_id'
+    context_object_name = 'location'
 
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            location.name = form.cleaned_data['name']
-            location.travel_year = form.cleaned_data['travel_year']
-            location.image_url = form.cleaned_data['image_url']
-            location.score = form.cleaned_data['score']
-            location.touristic_point = form.cleaned_data['touristic_point']
-            location.analysis = form.cleaned_data['analysis']
-            location.save()
-            return HttpResponseRedirect(
-                reverse('locations:detail', args=(location.id, )))
-    else:
-        form = PostForm(
-            initial={
-                'name': location.name,
-                'travel_year': location.travel_year,
-                'image_url': location.image_url,
-                'score': location.score,
-                'touristic_point': location.touristic_point,
-                'analysis': location.analysis
-            })
+    def get_success_url(self):
+        return reverse_lazy('locations:detail', kwargs={'location_id': self.object.id})
 
-    context = {'location': location, 'form': form}
-    return render(request, 'locations/update.html', context)
+    def get_object(self, queryset=None):
+        location_id = self.kwargs.get(self.pk_url_kwarg)
+        return get_object_or_404(Post, pk=location_id)
 
 
-def delete_location(request, location_id):
-    location = get_object_or_404(Post, pk=location_id)
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = 'locations/delete.html'
+    context_object_name = 'location'
+    success_url = reverse_lazy('locations:index') 
 
-    if request.method == "POST":
-        location.delete()
-        return HttpResponseRedirect(reverse('locations:index'))
-
-    context = {'location': location}
-    return render(request, 'locations/delete.html', context)
+    def get_object(self, queryset=None):
+        location_id = self.kwargs.get('location_id')
+        return get_object_or_404(Post, pk=location_id)

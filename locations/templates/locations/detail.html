@@ -16,7 +16,7 @@ location.travel_year }} {% endblock title %}
             <li>Highlight: {{ location.touristic_point }}</li>
             <li class="location-analysis">Description: {{ location.analysis }}</li>
             <li id="edit-button"><a href="{% url 'locations:update' location.id %}">Edit</a></li>
-            <li><a href="{% url 'locations:delete' location.id %}" id="delete-button">Delete</a></li>
+            <li id="delete-button"><a href="{% url 'locations:delete' location.id %}">Delete</a></li>
         </ul>
     </section>
 

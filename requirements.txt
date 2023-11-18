@@ -19,7 +19,7 @@ nest-asyncio==1.5.5
 packaging==21.3
 parso==0.8.3
 pickleshare==0.7.5
-pip==23.2.1
+pip==23.3.1
 prompt-toolkit==3.0.29
 psutil==5.9.0
 psycopg2-binary==2.9.9

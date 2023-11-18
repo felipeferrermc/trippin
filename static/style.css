@@ -332,3 +332,7 @@ button {
   display: flex;
   flex-direction:row;
 }
+
+.category-page {
+  margin-bottom: 10vh;
+}

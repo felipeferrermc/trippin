@@ -12,9 +12,10 @@
     </article>
     {% endfor %}
 </section>
+{% else %}
+<p>Locations not found.</p>
+{% endif %}
 <a href="{% url 'locations:create' %}">
     <p class="create-button">Add Location</p>
 </a>
-{% else %}
-<p>Locations not found.</p>
-{% endif %} {% endblock content %}
+{% endblock content %}

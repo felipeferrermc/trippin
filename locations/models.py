@@ -18,6 +18,7 @@ class Post(models.Model):
     touristic_point = models.CharField(max_length=200)
     analysis = models.CharField(max_length=500)
     categories = models.ManyToManyField(Category)
+    date = models.DateTimeField(auto_now_add=True)
 
 
 

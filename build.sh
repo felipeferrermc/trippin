@@ -5,9 +5,10 @@ set -o errexit
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
-
+# adicione linhas abaixo
 python manage.py migrate
 
+# create superuser if missing
 cat <<EOF | python manage.py shell
 import os
 from django.contrib.auth import get_user_model
